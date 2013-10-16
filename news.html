@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi">
+    </script>
+<script src="jquery.js"></script>
+    <script type="text/javascript">
+
+    google.load("feeds", "1");
+
+    function initialize() {
+    var rowObjects;
+      // var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+      //var feed = new google.feeds.Feed("http://feeds.bbci.co.uk/news/business/rss.xml?edition=uk#");
+      //var feed = new google.feeds.Feed("http://xml.fxstreet.com/index.xml");
+      var feed = new google.feeds.Feed("http://www.dailyfx.com/feeds/alerts");
+      //feed.setResultFormat(google.feeds.Feed.XML_FORMAT);
+      feed.setNumEntries(10);
+      feed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            
+
+			//alert('1');
+			rowObjects =
+			'<tr><td>'+
+
+			
+			'<a href=' + entry.link + '>'+entry.title+'</a>:[' +
+entry.publishedDate +'] ' +
+			
+            entry.content  +'</td>' +
+
+			'</tr>';
+			//alert(rowObjects);
+			//alert('2');
+			$('#newsTable tr:last').after(rowObjects);
+
+          }
+        }
+      });
+    }
+    google.setOnLoadCallback(initialize);
+
+$('#newsTable').attr('style','border: 1px solid #bab5b5; border-radius:0; background:yellow; color:#000000;color:blue; font-family: Trebuchet MS; font-size:14px; font-weight:normal;');
+    </script>
+  </head>
+  <body>
+    <table border="0" id="newsTable" align="center">
+    <tr><td></td></tr>
+    </table>
+
+
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<html>
+<head>
+<div align="center">
+<span style="font-size: 14px;color: #333333;text-decoration: none;">
+Get Quotes
+</span>
+<div>
+
+</head>
+<body>
+<script src="jquery.js"></script>
+
+<script type="text/javascript">
+
+        function getRates(){
+                //alert('click');
+
+                $.ajax({
+                                url: 'http://openexchangerates.org/api/latest.json?app_id=64640d4677ec4495a1cc7b9bed501593',
+                                dataType: 'json',
+                                success: function(json) {
+                                        //alert(json);
+                                        //alert(json.INR);
+
+                                        var gbp  = json.rates.GBP;
+                                        var cad  = json.rates.CAD;
+                                        var chf  = json.rates.CHF;
+                                        var eur  = json.rates.EUR;
+                                        var aud  = json.rates.AUD;
+                                        var sgd  = json.rates.SGD;
+                                        var inr  = json.rates.INR;
+                                        var thb  = json.rates.THB;
+
+                                        var cadinr = (inr/cad).toPrecision(6);
+                                        var gbpinr = (inr/gbp).toPrecision(6);
+                                        var eurinr = (inr/eur).toPrecision(6);
+                                        var audinr = (inr/aud).toPrecision(6);
+                                        var sgdinr = (inr/sgd).toPrecision(6);
+                                        var chfinr = (inr/chf).toPrecision(6);
+                                        var thbinr = (inr/thb).toPrecision(6);
+
+
+                                        $('#tdINR').html((inr).toPrecision(6));
+                                        $('#tdCAD').html(cadinr);
+                                        $('#tdGBP').html(gbpinr);
+                                        $('#tdEUR').html(eurinr);
+                                        $('#tdAUD').html(audinr);
+                                        $('#tdSGD').html(sgdinr);
+                                        $('#tdCHF').html(chfinr);
+                                        $('#tdTHB').html(thbinr);
+
+
+                                        $('#tweetString').html(
+'www.dailyinr.com \n' +
+                                        '#USDINR:'+inr    +'\n' +
+                                        '#CADINR:'+cadinr +'\n' +
+                                        '#GBPINR:'+gbpinr +'\n' +
+                                        '#EURINR:'+eurinr +'\n' +
+                                        '#AUDINR:'+audinr +'\n' +
+                                        '#SGDINR:'+sgdinr +'\n' +
+                                        '#CHFINR:'+chfinr +'\n' 
+                                        //'#THBINR:'+thbinr
+                                        );
+                                        $('#tweetString').focus();
+                                $('#tweetString').select();
+
+
+                                }
+                });
+
+        }
+
+function select_all(obj) {
+
+        /*
+        var text_val=eval(obj);
+        text_val.focus();
+        text_val.select();
+        if (!document.all) return; // IE only
+        r = text_val.createTextRange();
+        r.execCommand('copy');
+*/
+        if (document.createRange) {
+                    // IE9 and modern browsers
+                    var r = document.createRange();
+                    //r.setStartBefore(to_copy);
+                    //r.setEndAfter(to_copy);
+                    //r.selectNode(to_copy);
+                    var sel = window.getSelection();
+                    sel.addRange(r);
+                    document.execCommand('Copy');  // does nothing on FF
+                } else {
+                    // IE 8 and earlier.  This stuff won't work on IE9.
+                    // (unless forced into a backward compatibility mode,
+                    // or selecting plain divs, not img or table).
+                    var r = document.body.createTextRange();
+                    r.moveToElementText(to_copy);
+                    r.select()
+                    r.execCommand('Copy');
+                }
+
+    }
+
+</script>
+
+<div>
+<iframe frameborder="0" scrolling="no" height="62" width="860" allowtransparency="true" marginwidth="0" marginheight="0" src="http://tools.investing.com/quotes_bar.php?tab_1=1,2,3,5,7&tab_2=8830,8831,8836,8849,8862&tab_3=169,166,20,172,27&curr-name-color=%230059B0&inner-text-color=%23666666&green-text-color=%23008000&red-text-color=%23FF0000"></iframe>
+</div>
+
+<table>
+<tr><td>
+<div>
+<iframe frameborder="0" scrolling="no" height="182" width="564" allowtransparency="true" marginwidth="0" marginheight="0" src="http://fchart.investing.com/fcharts/index.php?pair_ID=160&height=182&width=564"></iframe>
+
+</div>
+</td>
+
+<td>
+<div>
+ <iframe frameborder="0" scrolling="no" height="355" width="430" allowtransparency="true" marginwidth="0" marginheight="0" src="http://charts.investing.com/index.php?pair_ID=160&timescale=300&candles=50&style=candles"></iframe>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td>
+<div>
+<iframe frameborder="0" scrolling="no" height="274" width="505" allowtransparency="true" marginwidth="0" marginheight="0" src="http://tools.investing.com/technical_summary.php?pairs=1,2,160,1760,8830,8849&curr-name-color=%230059B0&fields=5m,15m,1h,1d"></iframe>
+</div>
+</td>
+
+<td>
+<div>
+
+<iframe frameborder="0" scrolling="no" height="435" width="453" allowtransparency="true" marginwidth="0" marginheight="0" src="http://fxrates.investing.com/index.php?pairs_ids=160,1493;1529;1551;9506;1646;1760;1822;1869;1985;2035;2054;1;3;2;4;7;5;8;6;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%2369d150&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&bid=show&ask=show&last=hide&change=hide&last_update=hide">
+</iframe>
+</div>
+</td>
+
+</tr>
+
+</table>
+
+<div align="center">
+        <input type="button" value="Get FX Rates" id="getFxBtn" onclick="getRates()" />
+</div>
+
+
+
+<table border="1" id="ccyTable" align="center" style="display:none;" >
+<tr><td>#USDINR:</td><td id="tdINR" width="150"></td></tr>
+<tr><td>#CADINR:</td><td id="tdCAD" width="150"></td></tr>
+<tr><td>#GBPINR:</td><td id="tdGBP" width="150"></td></tr>
+<tr><td>#EURINR:</td><td id="tdEUR" width="150"></td></tr>
+<tr><td>#AUDINR:</td><td id="tdAUD" width="150"></td></tr>
+<tr><td>#SGDINR:</td><td id="tdSGD" width="150"></td></tr>
+<tr><td>#CHFINR:</td><td id="tdCHF" width="150"></td></tr>
+<tr><td>#THBINR:</td><td id="tdTHB" width="150"></td></tr>
+
+</table>
+
+<div align="center">
+
+<textarea  id="tweetString" name="textarea" rows="1" cols="1" ></textarea>
+
+</div>
+
+
+
+
+</body>
+</html>
